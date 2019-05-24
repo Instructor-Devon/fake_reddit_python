@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Fake Reddit - User Details</title>
+</head>
+<body>
+    <h2>Details for User #{{ user.id }}</h2>
+    <h4>Username</h4>
+    <p>{{ user.username }}</p>
+    <h4>Email</h4>
+    <p>{{ user.email }}</p>
+    <h4>Date Registered</h4>
+    <p>{{ user.created_at }}</p>
+    <h4>Number of Posts!</h4>
+    <p>{{ user.created_posts.all | length  }}</p>
+    <h4>Number of Likes!</h4>
+    <p>{{ user.liked_posts.all | length  }}</p>
+</body>
+</html>

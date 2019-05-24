@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Fake Reddit</title>
+</head>
+<body>
+    <h1>Hello and Welcome!</h1>
+    <h2>Register here!</h2>
+    <form action="/register" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <div class="form-group">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" name="confirm" id="confirm">
+        </div>
+        <button>Register</button>
+    </form>
+    <hr>
+    <h2>Login here!</h2>
+    <form action="/login" method="post">
+        {% csrf_token %}
+        <label for="user_id">TEMP:  Login by selection</label>
+        <select name="user_id" id="user_id">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+        </select>
+        <button>Login</button>
+    </form>
+</body>
+</html>

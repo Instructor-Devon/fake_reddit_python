@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Fake Reddit</title>
+</head>
+<body>
+    <h2>Welcome, {{ user.username }}</h2>
+    <hr>
+    <h2>Write a Post!</h2>
+    <form action="/newpost" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="topic">Topic</label>
+            <input type="text" name="topic">
+        </div>
+        <div class="form-group">
+            <label for="content">Post</label>
+            <textarea type="text" name="content"></textarea>
+        </div>
+        <button>Send Post!</button>
+    </form>
+    <h4>Posts</h4>
+    <hr>
+    {% for post in unliked_posts %}
+    <div class="post">
+        <h3>{{ post.topic }}</h3>
+        <p>{{ post.content }}</p>
+        <a href="/like/{{ post.id }}">LIKE IT!</a>
+        <p>Posted by: <a href="/users/{{ post.author.id}}">{{ post.author.username }}</a></p>
+        <p>{{ post.likes.all | length }} Likes!</p>
+        <a href="/posts/{{ post.id }}">View Details</a>
+        <hr>
+    </div>
+    {% endfor %}
+    {% for post in liked_posts %}
+    <div class="post">
+        <h3>{{ post.topic }}</h3>
+        <p>{{ post.content }}</p>
+        <a href="/unlike/{{ post.id }}">Un-Like IT!</a>
+        <p>Posted by: <a href="/users/{{ post.author.id}}">{{ post.author.username }}</a></p>
+        <p>{{ post.likes.all | length }} Likes!</p>
+        <a href="/posts/{{ post.id }}">View Details</a>
+        <hr>
+    </div>
+    {% endfor %}
+</body>
+</html>
